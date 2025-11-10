@@ -7,3 +7,7 @@ install:
 # Corre los tests
 test:
 	pytest
+
+# Ejecuta la aplicación en modo de desarrollo
+run:
+	uvicorn acortadorurl.main:app --reload
