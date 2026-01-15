@@ -10,4 +10,4 @@ test:
 
 # Ejecuta la aplicación en modo de desarrollo
 run:
-	uvicorn acortadorurl.main:app --reload
+	nohup uvicorn acortadorurl.main:app --host 0.0.0.0 > uvicorn.log 2>&1 &
