@@ -1,0 +1,27 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+Dockerfile
+
+# Entorno virtual
+venv/
+.venv/
+
+# Ficheros de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Documentación y otros
+docs/
+*.md
+Makefile
+test.db
+shortener.db
+uvicorn.log
+# JetBrains
+.idea/

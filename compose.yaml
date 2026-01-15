@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: shortener_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" # Solo para depuración, no en producción
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env # Usar el .env para variables de entorno locales
+    environment:
+      DATABASE_URL: postgresql://user:password@db:5432/shortener_db # URL de la base de datos para el contenedor web
+    depends_on:
+      - db
+    ports:
+      - "8000:8000" # Solo para depuración, no en producción
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf # Mapea nuestro archivo de configuración de Nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - web
+
+volumes:
+  db_data:

@@ -1,18 +1,23 @@
-# Use an official Python runtime as a parent image
-FROM python:3.11-slim-buster
+# 1. Imagen base
+FROM python:3.11-slim
 
-# Set the working directory in the container
-WORKDIR /app
+# 2. Crear un usuario no-root y directorio de trabajo
+ENV HOME=/home/app
+RUN useradd --create-home --home-dir $HOME app && \
+    chown -R app:app $HOME
+WORKDIR $HOME
+USER app
 
-# Install any needed packages specified in requirements.txt
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# 3. Copiar e instalar dependencias para aprovechar la caché de Docker
+COPY --chown=app:app requirements.txt .
+RUN pip install --no-cache-dir --user -r requirements.txt
 
-# Copy the current directory contents into the container at /app
-COPY . .
+# Copiar el archivo .env
+COPY --chown=app:app .env .
 
-# Expose port 8000 for the FastAPI application
+# 4. Copiar el código de la aplicación
+COPY --chown=app:app acortadorurl/ ./acortadorurl/
+
+# 5. Exponer el puerto y ejecutar la aplicación
 EXPOSE 8000
-
-# Run the uvicorn server
-CMD ["uvicorn", "acortadorurl.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["/home/app/.local/bin/uvicorn", "acortadorurl.main:app", "--host", "0.0.0.0", "--port", "8000"]
