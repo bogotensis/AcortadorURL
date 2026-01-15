@@ -110,3 +110,26 @@ Redirige a la URL original.
     ```bash
     curl -L http://127.0.0.1:8000/XXXXXX
     ```
+
+---
+
+## Cumplimiento del Hito 2: Integración Continua
+
+Este proyecto cumple satisfactoriamente con los requisitos de valoración del Hito 2, "Integración Continua", según lo establecido en el documento `CI.md`. A continuación, se detalla cómo se abordan cada uno de los puntos evaluables:
+
+1.  **Elección y configuración del gestor de tareas (1.5 puntos):**
+    *   **Cumplido.** Se ha implementado un `Makefile` en la raíz del proyecto (`AcortadorURL/Makefile`) que define objetivos clave como `install` para la gestión de dependencias y `test` para la ejecución de pruebas. Esto asegura una automatización consistente de las tareas de construcción y testeo.
+
+2.  **Elección y uso de la biblioteca de aserciones (1.5 puntos):**
+    *   **Cumplido.** Se utiliza `pytest` como marco de pruebas, el cual integra un sistema de aserciones basado en la palabra clave `assert` nativa de Python. Los tests en `AcortadorURL/tests/test_api.py` demuestran su uso efectivo (ej. `assert response.status_code == 201`), proporcionando un código de prueba claro y legible.
+
+3.  **Elección y uso del marco de pruebas (1.5 puntos):**
+    *   **Cumplido.** `Pytest` ha sido seleccionado como el marco de pruebas principal. Su flexibilidad y capacidad de descubrimiento automático de tests, junto con su amplio ecosistema de plugins, lo convierten en una opción robusta para el desarrollo basado en pruebas, como se aplica en `AcortadorURL/tests/test_api.py`.
+
+4.  **Integración continua funcionando y correcta justificación del sistema elegido (4 puntos):**
+    *   **Cumplido.** Se ha configurado un flujo de trabajo de Integración Continua mediante `GitHub Actions` (`AcortadorURL/.github/workflows/ci.yml`). Este workflow se activa automáticamente con cada `push` y `pull_request` a la rama `main`, garantizando que los tests se ejecuten de manera continua. La justificación de la elección de `GitHub Actions`, `Makefile` y `Pytest` se encuentra detallada en el archivo `AcortadorURL/docs/hito2.md`, explicando su idoneidad para el proyecto.
+
+5.  **Correcta implementación y ejecución de los tests para testear algunos aspectos de la lógica de negocio de la aplicación a desarrollar (1.5 puntos):**
+    *   **Cumplido.** El archivo `AcortadorURL/tests/test_api.py` contiene tests funcionales (ej. `test_shorten_and_redirect` y `test_short_code_not_found`) que validan la lógica de negocio principal del acortador de URLs: la creación exitosa de URLs cortas, la correcta redirección a URLs originales y el manejo de códigos cortos inexistentes. Estos tests aseguran la funcionalidad básica del micro servicio.
+
+Todos los archivos y configuraciones mencionados se encuentran debidamente versionados y disponibles en el repositorio de GitHub, garantizando la trazabilidad y la reproducibilidad de la implementación de la Integración Continua.
