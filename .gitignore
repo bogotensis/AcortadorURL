@@ -54,7 +54,6 @@ env/
 
 # OS
 .DS_Store
-.env
 .env.*
 .flaskenv
 
