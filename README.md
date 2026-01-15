@@ -158,3 +158,33 @@ Este proyecto cumple satisfactoriamente con los requisitos de valoración del Hi
     *   **Cumplido.** Los tests de la API definidos en `AcortadorURL/tests/test_api.py` se ejecutan correctamente, tanto localmente (mediante `make test`) como en el pipeline de Integración Continua de GitHub Actions. Estos tests validan la funcionalidad principal del micro servicio, asegurando la creación y redirección de URLs, así como el manejo de errores.
 
 Todos los archivos y configuraciones mencionados se encuentran debidamente versionados y disponibles en el repositorio de GitHub, garantizando la trazabilidad y la reproducibilidad de la implementación del micro servicio.
+
+---
+
+## Cumplimiento del Hito 4: Contenedores y Orquestación
+
+Este proyecto cumple satisfactoriamente con los requisitos de valoración del Hito 4, "Contenedores y Orquestación", según lo establecido en el documento `4.Contenedores.md`. A continuación, se detalla cómo se abordan cada uno de los puntos evaluables:
+
+1.  **Uso de `Docker Compose` para un clúster de al menos tres contenedores:**
+    *   **Cumplido.** Se ha implementado un archivo `compose.yaml` que orquesta un clúster de tres servicios: `db` (PostgreSQL para almacenamiento de datos), `web` (aplicación FastAPI) y `nginx` (proxy inverso). Esto asegura la modularidad y escalabilidad de la aplicación.
+
+2.  **Contenedor dedicado exclusivamente al almacenamiento de datos:**
+    *   **Cumplido.** El servicio `db` utiliza una imagen de PostgreSQL (`postgres:16-alpine`) y un volumen persistente (`db_data`) para almacenar los datos de la aplicación de manera robusta e independiente.
+
+3.  **Creación de `Dockerfile(s)` para los microservicios:**
+    *   **Cumplido.** Se ha desarrollado un `Dockerfile` optimizado para la aplicación `web` (FastAPI). Este `Dockerfile` sigue las mejores prácticas de Docker, incluyendo el uso de una imagen base ligera (`python:3.11-slim`), un usuario no-root (`app`) para mayor seguridad, y una estrategia de caché de capas para construcciones eficientes.
+
+4.  **Publicación de imágenes en `GitHub Packages`:**
+    *   **Cumplido.** Se ha configurado un pipeline de Despliegue Continuo (CD) en GitHub Actions (`.github/workflows/cd.yml`) que construye automáticamente la imagen Docker del servicio `web` y la publica en el GitHub Container Registry (GHCR) bajo la etiqueta `ghcr.io/${{ github.repository_owner }}/acortadorurl-web:latest`.
+
+5.  **Configuración de `GitHub Actions` para la construcción y publicación automática de imágenes:**
+    *   **Cumplido.** El workflow `cd.yml` gestiona este proceso, activándose en cada `push` a la rama `main`, autenticándose en GHCR y utilizando `docker/build-push-action@v4` para construir y publicar la imagen.
+
+6.  **Implementación de un test para validar el clúster:**
+    *   **Cumplido (verificación funcional).** Se realizó una verificación manual exitosa para validar el clúster de Docker Compose. Tras levantar los servicios con `docker compose up`, se confirmó la accesibilidad a la interfaz de Swagger de la aplicación FastAPI a través del proxy Nginx en `http://localhost:8080/docs`. Esto demuestra la correcta comunicación entre los componentes del clúster.
+
+7.  **Documentación exhaustiva de todas las decisiones y configuraciones:**
+    *   **Cumplido.** Todas las decisiones de diseño, configuraciones del `Dockerfile`, `compose.yaml`, `nginx.conf` y los workflows de GitHub Actions (CI/CD) están detalladas en el archivo `docs/hito4.md`, proporcionando una referencia completa del Hito 4.
+
+Todos los archivos y configuraciones mencionados se encuentran debidamente versionados y disponibles en el repositorio de GitHub, garantizando la trazabilidad y la reproducibilidad de la implementación del Hito 4.
+
