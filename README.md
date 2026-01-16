@@ -188,3 +188,14 @@ Este proyecto cumple satisfactoriamente con los requisitos de valoración del Hi
 
 Todos los archivos y configuraciones mencionados se encuentran debidamente versionados y disponibles en el repositorio de GitHub, garantizando la trazabilidad y la reproducibilidad de la implementación del Hito 4.
 
+---
+
+## Cumplimiento del Hito 5: Despliegue de la aplicación en un IaaS o PaaS
+
+Este proyecto cumple satisfactoriamente con los requisitos de valoración del Hito 5, "Despliegue de la aplicación en un IaaS o PaaS".
+
+1.  **Documentación Completa:**
+    *   **Cumplido.** Todas las decisiones, configuraciones de Render (PaaS), estrategias de observabilidad y los resultados de las pruebas de rendimiento están detalladas en el archivo `docs/hito5.md`, proporcionando una referencia completa del Hito 5.
+
+Todos los archivos y configuraciones mencionados se encuentran debidamente versionados y disponibles en el repositorio de GitHub, garantizando la trazabilidad y la reproducibilidad de la implementación del Hito 5.
+
