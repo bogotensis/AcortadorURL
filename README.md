@@ -1,4 +1,4 @@
-# Acortador de URLs con Analíticas
+# Acortador de URLs
 
 [![CI](https://github.com/bogotensis/AcortadorURL/actions/workflows/ci.yml/badge.svg)](https://github.com/bogotensis/AcortadorURL/actions/workflows/ci.yml)
 

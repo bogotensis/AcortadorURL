@@ -7,7 +7,7 @@ Este documento detalla el cumplimiento de los requisitos establecidos en el Hito
 La descripción del proyecto, su justificación y el stack tecnológico se encuentran en el fichero principal del repositorio:
 - [README.md](../README.md)
 
-El proyecto "Acortador de URLs con Analíticas" cumple con los requisitos de tener una lógica de negocio aceptable, estar basado en servidor y beneficiarse de un despliegue en la nube.
+El proyecto "Acortador de URLs" cumple con los requisitos de tener una lógica de negocio aceptable, estar basado en servidor y beneficiarse de un despliegue en la nube.
 
 ## 2. Configuración del Entorno y Buenas Prácticas
 

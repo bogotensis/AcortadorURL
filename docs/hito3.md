@@ -1,6 +1,6 @@
 # Hito 3: Diseño de Microservicios
 
-Este documento detalla el diseño e implementación del primer microservicio para el proyecto "Acortador de URLs con Analíticas", cumpliendo con los requisitos del Hito 3.
+Este documento detalla el diseño e implementación del primer microservicio para el proyecto "Acortador de URLs", cumpliendo con los requisitos del Hito 3.
 
 ## 1. Justificación del Framework
 

@@ -1,6 +1,6 @@
 # Hito 2: Integración Continua
 
-Este documento detalla la implementación de la Integración Continua (CI) para el proyecto "Acortador de URLs con Analíticas", siguiendo los requisitos del Hito 2 de la asignatura de Cloud Computing.
+Este documento detalla la implementación de la Integración Continua (CI) para el proyecto "Acortador de URLs", siguiendo los requisitos del Hito 2 de la asignatura de Cloud Computing.
 
 ## 1. Elección y Configuración de Herramientas
 
