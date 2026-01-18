@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/bogotensis/AcortadorURL/actions/workflows/ci.yml/badge.svg)](https://github.com/bogotensis/AcortadorURL/actions/workflows/ci.yml)
 
-Un servicio robusto para acortar URLs, construido con FastAPI y desplegado en la nube. En futuras versiones, proporcionará estadísticas detalladas sobre su uso.
+Este proyecto es un servicio para acortar URLs, desarrollado como parte de la asignatura de Cloud Computing. La aplicación está construida con un stack moderno que incluye Python y FastAPI, y se encuentra totalmente contenerizada con Docker para un despliegue reproducible y escalable.
 
 ---
 
