@@ -29,8 +29,8 @@ A continuación, se confirma la configuración del entorno de desarrollo y la ad
 - **[X] Uso de Issues y Milestones:** Se utilizará el sistema de *Issues* y *Milestones* de GitHub para la gestión de tareas y la planificación de los hitos del proyecto. Los *commits* harán referencia a los *issues* correspondientes para mantener la trazabilidad.
 - **[X] No inclusión de código ajeno:** No se incluirá código que no sea propio directamente en el repositorio. Las dependencias se gestionarán a través de ficheros de requisitos.
 - **[X] No inclusión de binarios:** No se publicarán ficheros binarios en el repositorio. Se utilizarán los *releases* de GitHub para este propósito si fuera necesario.
-- **[_] Sincronización con Repositorio del Profesor:** Se adoptará la práctica de sincronizar el *fork* del repositorio de la asignatura (`git pull --rebase`) antes de realizar un *pull request* para evitar conflictos y *merge commits*.
+- **[_] Sincronización con el repositorio principal de la asignatura (https://github.com/cvillalonga/CC-25-26):** Se adoptará la práctica de sincronizar el *fork* del repositorio de la asignatura (`git pull --rebase`) antes de realizar un *pull request* para evitar conflictos y *merge commits*.
 
 ## 3. Entrega del Hito
 
-Para la entrega de este hito, se ha realizado un *fork* del repositorio del profesor y se ha creado un *Pull Request* con el enlace a este documento en el fichero `proyectos/hito1.md`.
+Para la entrega de este hito, se ha realizado un *fork* del repositorio principal de la asignatura (https://github.com/cvillalonga/CC-25-26) y se ha creado un *Pull Request* con el enlace a este documento en el fichero `proyectos/hito1.md`.
