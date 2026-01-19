@@ -3,6 +3,7 @@ import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
@@ -31,6 +32,15 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# --- Configuración de CORS ---
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite cualquier origen
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos los métodos
+    allow_headers=["*"],  # Permite todas las cabeceras
+)
+
 # --- Modelos de Datos (Pydantic) ---
 class URLBase(BaseModel):
     original_url: str
@@ -42,7 +52,10 @@ class URLShortened(BaseModel):
 @app.post("/shorten", response_model=URLShortened, status_code=201)
 def create_short_url(url: URLBase, request: Request, db: Session = Depends(get_db)):
     """
-    Crea una URL corta a partir de una URL original.
+    Recibe una URL original, genera un código corto único y lo guarda en la base de datos.
+
+    - **URL original**: La URL que se desea acortar, enviada en el cuerpo de la solicitud.
+    - **Respuesta exitosa (201)**: Devuelve la URL completa acortada, incluyendo el dominio.
     """
     original_url = url.original_url
     logger.info(f"Recibida solicitud para acortar URL: {original_url}")
@@ -59,7 +72,11 @@ def create_short_url(url: URLBase, request: Request, db: Session = Depends(get_d
 @app.get("/{short_code}")
 def redirect_to_original(short_code: str, db: Session = Depends(get_db)):
     """
-    Redirige a la URL original a partir de un código corto.
+    Busca un código corto y redirige a la URL original correspondiente.
+
+    - **Código corto**: El identificador único de la URL acortada.
+    - **Redirección exitosa**: Responde con un HTTP 307 a la URL original.
+    - **Error (404)**: Si el código corto no se encuentra en la base de datos.
     """
     logger.info(f"Recibida solicitud de redirección para el código: {short_code}")
     
