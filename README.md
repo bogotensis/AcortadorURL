@@ -13,6 +13,13 @@ La aplicación está desplegada en Render y puedes interactuar con ella aquí:
 *   **URL Base:** [https://acortadorurl-z2xj.onrender.com](https://acortadorurl-z2xj.onrender.com)
 *   **Documentación de la API (Swagger):** [https://acortadorurl-z2xj.onrender.com/docs](https://acortadorurl-z2xj.onrender.com/docs)
 
+### 🌐 Frontend Web
+
+El proyecto ahora incluye una interfaz de usuario web simple para interactuar con la API.
+
+*   **Uso Local:** Puedes probar el frontend abriendo el archivo `web/index.html` directamente en tu navegador.
+*   **Despliegue:** Esta carpeta `web` está lista para ser desplegada como un "Static Site" en plataformas como Render o Vercel.
+
 ---
 
 ## ✨ Características

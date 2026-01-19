@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acortador de URLs</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+        p.instructions {
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+        textarea {
+            width: calc(100% - 20px);
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            resize: vertical;
+            min-height: 100px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        #resultContainer {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e9f7ef;
+            border: 1px solid #d4edda;
+            border-radius: 8px;
+            text-align: left;
+            display: none; /* Hidden by default */
+        }
+        #resultContainer p {
+            color: #28a745;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        #shortUrlLink {
+            word-break: break-all;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+        #shortUrlLink:hover {
+            text-decoration: underline;
+        }
+        #copyButton {
+            background-color: #6c757d;
+        }
+        #copyButton:hover {
+            background-color: #5a6268;
+        }
+        #errorContainer {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            color: #721c24;
+            display: none; /* Hidden by default */
+        }
+        #loadingSpinner {
+            display: none; /* Hidden by default */
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #007bff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Acortador de URLs</h1>
+        <p class="instructions">Introduce una URL larga en el campo de texto de abajo y haz clic en "Acortar" para obtener una versión más corta y fácil de compartir.</p>
+        
+        <textarea id="longUrlInput" placeholder="Pega aquí tu URL larga (ej: https://www.ejemplo.com/pagina-muy-larga)"></textarea>
+        <button id="shortenButton">Acortar URL</button>
+        
+        <div id="loadingSpinner"></div>
+
+        <div id="resultContainer">
+            <p>Operación exitosa:</p>
+            <a id="shortUrlLink" href="#" target="_blank"></a>
+            <button id="copyButton">Copiar URL</button>
+        </div>
+
+        <div id="errorContainer">
+            <p>Ha ocurrido un error. Por favor, verifica la URL e inténtalo de nuevo.</p>
+        </div>
+    </div>
+
+    <script>
+        const backendApiUrl = "https://acortadorurl-z2xj.onrender.com"; // Asegúrate de que esta URL es correcta
+
+        const longUrlInput = document.getElementById('longUrlInput');
+        const shortenButton = document.getElementById('shortenButton');
+        const resultContainer = document.getElementById('resultContainer');
+        const shortUrlLink = document.getElementById('shortUrlLink');
+        const copyButton = document.getElementById('copyButton');
+        const errorContainer = document.getElementById('errorContainer');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        // Función para validar URL básica
+        function isValidUrl(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        shortenButton.addEventListener('click', async () => {
+            const originalUrl = longUrlInput.value.trim();
+
+            // Limpiar resultados anteriores y errores
+            resultContainer.style.display = 'none';
+            errorContainer.style.display = 'none';
+            loadingSpinner.style.display = 'block'; // Mostrar spinner
+
+            if (!originalUrl) {
+                errorContainer.innerText = 'Por favor, introduce una URL.';
+                errorContainer.style.display = 'block';
+                loadingSpinner.style.display = 'none';
+                return;
+            }
+            if (!isValidUrl(originalUrl)) {
+                errorContainer.innerText = 'La URL introducida no es válida.';
+                errorContainer.style.display = 'block';
+                loadingSpinner.style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${backendApiUrl}/shorten`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ original_url: originalUrl }),
+                });
+
+                loadingSpinner.style.display = 'none'; // Ocultar spinner
+
+                if (response.ok) { // response.ok es true para códigos de estado 2xx
+                    const data = await response.json();
+                    const fullShortUrl = data.short_url; // La API devuelve la URL completa
+
+                    shortUrlLink.href = fullShortUrl;
+                    shortUrlLink.textContent = fullShortUrl;
+                    resultContainer.style.display = 'block';
+                    copyButton.textContent = 'Copiar URL'; // Reset copy button text
+                } else {
+                    const errorText = await response.text();
+                    errorContainer.innerText = `Error al acortar la URL: ${response.status} - ${errorText || 'Error desconocido'}`;
+                    errorContainer.style.display = 'block';
+                }
+            } catch (error) {
+                loadingSpinner.style.display = 'none'; // Ocultar spinner
+                errorContainer.innerText = `Error de red o de la API: ${error.message}`;
+                errorContainer.style.display = 'block';
+                console.error('Error:', error);
+            }
+        });
+
+        copyButton.addEventListener('click', () => {
+            const shortUrl = shortUrlLink.href;
+            if (shortUrl) {
+                navigator.clipboard.writeText(shortUrl).then(() => {
+                    copyButton.textContent = '¡Copiado!';
+                    setTimeout(() => {
+                        copyButton.textContent = 'Copiar URL';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Error al copiar: ', err);
+                    alert('No se pudo copiar la URL. Por favor, cópiala manualmente.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
