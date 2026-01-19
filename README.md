@@ -18,7 +18,7 @@ La aplicación está desplegada en Render y puedes interactuar con ella aquí:
 El proyecto ahora incluye una interfaz de usuario web simple para interactuar con la API.
 
 *   **Uso Local:** Puedes probar el frontend abriendo el archivo `web/index.html` directamente en tu navegador.
-*   **Despliegue:** Esta carpeta `web` está lista para ser desplegada como un "Static Site" en plataformas como Render o Vercel.
+*   **En Producción:** [https://acortadorurl-1-npfo.onrender.com/](https://acortadorurl-1-npfo.onrender.com/)
 
 ---
 
